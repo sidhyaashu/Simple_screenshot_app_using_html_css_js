@@ -15,8 +15,8 @@ This is a simple web application that allows users to capture screenshots of any
 - [License](#license)
 
 ## Demo
-
-You can see the live demo of this app [here](#).
+You can see the live demo of this app.
+![Screenshot of landing page](images/one.png)
 
 ## Features
 
@@ -33,7 +33,7 @@ To run the project locally, follow these steps:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/website-screenshot-capture.git
+    git clone https://github.com/sidhyaashu/Simple_screenshot_app_using_html_css_js.git
     ```
 
 2. Navigate to the project directory:
