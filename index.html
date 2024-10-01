@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #screenshot {
+            margin-top: 20px;
+        }
+        .loading {
+            font-size: 18px;
+            color: #555;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Website Screenshot Capture</h1>
+    <input type="text" id="websiteUrl" placeholder="Enter website URL" />
+    <br />
+    <button onclick="captureScreenshot()">Capture Screenshot</button>
+
+    <div id="screenshot"></div>
+    <div id="error" class="error"></div>
+
+    <script>
+        function captureScreenshot() {
+            const websiteUrl = document.getElementById('websiteUrl').value.trim();
+            const screenshotDiv = document.getElementById('screenshot');
+            const errorDiv = document.getElementById('error');
+
+            screenshotDiv.innerHTML = '';
+            errorDiv.innerHTML = '';
+
+            if (!websiteUrl) {
+                errorDiv.innerHTML = 'Please enter a valid website URL';
+                return;
+            }
+
+            screenshotDiv.innerHTML = '<p class="loading">Capturing screenshot...</p>';
+
+            const apiKey = 'TR20YVQ-WXKMKDJ-P7DXP8G-B9HYZJ3'; // Replace with your valid API key
+            const apiEndpoint = `https://shot.screenshotapi.net/screenshot?token=${apiKey}&url=${encodeURIComponent(websiteUrl)}&output=json&file_type=png&wait_for_event=load&scrolling_screenshot=true`;
+
+            fetch(apiEndpoint)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server returned ${response.status}`);
+                    }
+                    return response.json(); 
+                })
+                .then(data => {
+                    if (data.screenshot) {
+                        screenshotDiv.innerHTML = `<img src="${data.screenshot}" alt="Screenshot" width="600">`;
+                    } else {
+                        throw new Error('Screenshot data is invalid.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error capturing screenshot:', error);
+                    errorDiv.innerHTML = `An error occurred: ${error.message}`;
+                    screenshotDiv.innerHTML = '';
+                });
+        }
+    </script>
+
+</body>
+</html>
