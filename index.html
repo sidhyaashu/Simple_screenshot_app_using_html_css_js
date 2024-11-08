@@ -69,7 +69,7 @@
 
             screenshotDiv.innerHTML = '<p class="loading">Capturing screenshot...</p>';
 
-            const apiKey = 'enter your api key'; // Replace with your valid API key
+            const apiKey = 'enter your api key';
             const apiEndpoint = `https://shot.screenshotapi.net/screenshot?token=${apiKey}&url=${encodeURIComponent(websiteUrl)}&output=json&file_type=png&wait_for_event=load&scrolling_screenshot=true`;
 
             fetch(apiEndpoint)
